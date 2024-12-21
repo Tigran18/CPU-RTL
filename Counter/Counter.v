@@ -1,12 +1,12 @@
 module counter (
-    input clk,          // Clock signal
-    input reset,        // Reset signal
-    output reg [3:0] q  // 4-bit output
+    input clk,          
+    input reset,        
+    output reg [3:0] q  
 );
     always @(posedge clk or posedge reset) begin
         if (reset)
-            q <= 4'b0000;   // Reset the counter
+            q <= 4'b0000;   
         else
-            q <= q + 1;     // Increment the counter
+            q <= q + 1;     
     end
 endmodule
