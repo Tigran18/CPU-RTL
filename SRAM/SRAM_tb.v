@@ -20,6 +20,8 @@ SRAM u_sram(
     .data_out(data_out)
 );
 
+integer i;
+
 task my_task;
 
     begin
@@ -27,7 +29,8 @@ task my_task;
     res = 1;  
     #5; 
     res = 0;
-    for (addr = 0; addr < 255; addr = addr + 1) begin
+    for (i = 0; i < 256; i = i + 1) begin
+        addr=i;
         #5;
         WE = 0;  
         if (addr%32 <= 15) begin
