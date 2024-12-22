@@ -21,40 +21,40 @@ SRAM u_sram(
 );
 
 task my_task;
+
     begin
-    $dumpfile("SRAM.vcd");
-    $dumpvars(0, SRAM_tb);
     clk = 0;
     res = 1;  
     #5; 
     res = 0;
-    for (addr = 0; addr < 33; addr = addr + 1) begin
+    for (addr = 0; addr < 255; addr = addr + 1) begin
         #5;
         WE = 0;  
-        if (addr <= 15) begin
+        if (addr%32 <= 15) begin
             data_in = 32'b0;
-            data_in[15 - addr] = 1;  
-            data_in[15 + addr] = 1;  
+            data_in[15 - addr%32] = 1;  
+            data_in[15 + addr%32] = 1;  
         end 
         else begin
             data_in = 32'b0;
-            data_in[addr - 15] = 1;  
-            data_in[32 - (addr - 15)] = 1;  
+            data_in[addr%32 - 15] = 1;  
+            data_in[32 - (addr%32 - 15)] = 1;  
         end
         #5;
         WE = 1;  
     end
     $finish; 
     end 
-
 endtask
 
 initial begin
+    $dumpfile("SRAM.vcd");
+    $dumpvars(0, SRAM_tb);
     my_task();
 end
 
 initial begin
-    $monitor("Data In: %b | Data Out: %b", data_in, data_out);
+    $monitor("Addr: %d | Data In: %b | Data Out: %b", addr, data_in, data_out);
 end
 
 endmodule
