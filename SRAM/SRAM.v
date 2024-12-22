@@ -1,27 +1,21 @@
-module SRAM(
+module SRAM #(parameter ADDR=8, parameter WIDTH=32, parameter LENGTH=256)(
     input clk,
     input res,
     input WE,
-    input [7:0] addr,
-    input [31:0] data_in,
-    output reg [31:0] data_out
+    input [ADDR-1:0] addr,
+    input [WIDTH-1:0] data_in,
+    output reg [WIDTH-1:0] data_out
 );
 
-reg [31:0] mem[0:255];
+reg [WIDTH-1:0] mem[0:LENGTH-1];
 integer i;  
 
-always @(posedge clk or posedge res) begin
-    if (res) begin
-        for (i = 0; i < 256; i = i + 1) begin
-            mem[i] = 0;
-        end
-    end else begin
-        if (WE) begin
-            mem[addr] <= data_in;
-        end 
-        else begin
-            data_out <= mem[addr];
-        end
+always @(posedge clk) begin
+    if (WE) begin
+        mem[addr] <= data_in;
+    end 
+    else begin
+        data_out <= mem[addr];
     end
 end
 

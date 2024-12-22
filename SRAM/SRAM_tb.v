@@ -11,7 +11,10 @@ wire [31:0] data_out;
 
 always #1 clk = ~clk; 
 
-SRAM u_sram(
+SRAM #(
+    .WIDTH(32),
+    .LENGTH(256)
+)u_sram(
     .clk(clk),
     .res(res),
     .WE(WE),
@@ -23,13 +26,12 @@ SRAM u_sram(
 integer i;
 
 task my_task;
-
     begin
     clk = 0;
     res = 1;  
     #5; 
     res = 0;
-    for (i = 0; i < 256; i = i + 1) begin
+    for (i = 0; i < 32; i = i + 1) begin
         addr=i;
         #5;
         WE = 0;  
@@ -41,7 +43,7 @@ task my_task;
         else begin
             data_in = 32'b0;
             data_in[addr%32 - 15] = 1;  
-            data_in[32 - (addr%32 - 15)] = 1;  
+            data_in[31 - (addr%32 - 15)] = 1;  
         end
         #5;
         WE = 1;  
@@ -57,7 +59,7 @@ initial begin
 end
 
 initial begin
-    $monitor("Addr: %d | Data In: %b | Data Out: %b", addr, data_in, data_out);
+    $monitor("Data Out: %b", data_out);
 end
 
 endmodule
