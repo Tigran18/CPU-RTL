@@ -20,7 +20,8 @@ SRAM u_sram(
     .data_out(data_out)
 );
 
-initial begin
+task my_task;
+    begin
     $dumpfile("SRAM.vcd");
     $dumpvars(0, SRAM_tb);
     clk = 0;
@@ -43,12 +44,17 @@ initial begin
         #5;
         WE = 1;  
     end
+    $finish; 
+    end 
 
-    $finish;  
+endtask
+
+initial begin
+    my_task();
 end
 
 initial begin
-    $monitor("Data Out: %b", data_out);
+    $monitor("Data In: %b | Data Out: %b", data_in, data_out);
 end
 
 endmodule
