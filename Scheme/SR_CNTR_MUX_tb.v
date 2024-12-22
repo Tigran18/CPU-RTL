@@ -1,33 +1,43 @@
-`include "Scheme.v"
+`include "SR_CNTR_MUX.v"
 
 module tb_top;
     reg clk;
     reg reset;
     reg [7:0] sn1;
+    reg incr;
+    reg en;
     wire y;
+
+    always begin 
+        #5 clk = ~clk;
+        #10 en=~en;
+        #15 incr=~incr;
+    end
 
     top uut (
         .clk(clk),
         .reset(reset),
         .sn1(sn1),
+        .incr(incr),
+        .en(en),
         .y(y)
     );
 
-    always #5 clk = ~clk;
-
     initial begin
-        $dumpfile("scheme.vcd");    
+        $dumpfile("SR_CNTR_MUX.vcd");    
         $dumpvars(0, tb_top);
         clk = 0;
+        incr=1;
+        en=1;
         reset = 1;
         sn1 = 8'b00000000;
 
         #10 reset = 0;
 
-        for (integer i = 0; i < 8; i += 1) begin
+        for (integer i = 0; i < 256; i += 1) begin
             #10 sn1 = sn1 + 1;
         end
-        #80 $finish;
+        #1000 $finish;
     end
 
     initial begin

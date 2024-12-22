@@ -15,13 +15,22 @@ endmodule
 module counter (
     input clk,
     input reset,
+    input en,
+    input incr,
     output reg [2:0] count
 );
     always @(posedge clk or posedge reset) begin
-        if (reset)
+        if (reset) begin
             count <= 3'b000;
-        else
-            count <= count + 1;
+        end
+        else begin
+            if(en & incr) begin
+                count <= count + 1;
+            end
+            if(en & ~incr) begin
+                count <= count + 1;
+            end
+        end
     end
 endmodule
 
@@ -37,6 +46,8 @@ module top (
     input clk,
     input reset,
     input [7:0] sn1, 
+    input incr,
+    input en,
     output y         
 );
     wire [7:0] q;        
@@ -57,6 +68,8 @@ module top (
     counter counter_inst (
         .clk(clk),
         .reset(reset),
+        .en(en),
+        .incr(incr),
         .count(sel)
     );
 
