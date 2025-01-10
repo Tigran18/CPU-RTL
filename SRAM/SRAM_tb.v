@@ -3,7 +3,6 @@
 module SRAM_tb();
 
 reg clk;
-reg res;
 reg WE;
 reg [7:0] addr;
 reg [31:0] data_in;
@@ -16,7 +15,6 @@ SRAM #(
     .LENGTH(256)
 )u_sram(
     .clk(clk),
-    .res(res),
     .WE(WE),
     .addr(addr),
     .data_in(data_in),
@@ -28,26 +26,23 @@ integer i;
 task my_task;
     begin
     clk = 0;
-    res = 1;  
     #5; 
-    res = 0;
-    for (i = 0; i < 32; i = i + 1) begin
-        addr=i;
+    for (i = 0; i < 256; i = i + 1) begin
+        addr = i;       
         #5;
-        WE = 0;  
-        if (addr%32 <= 15) begin
-            data_in = 32'b0;
-            data_in[15 - addr%32] = 1;  
-            data_in[15 + addr%32] = 1;  
-        end 
-        else begin
-            data_in = 32'b0;
-            data_in[addr%32 - 15] = 1;  
-            data_in[31 - (addr%32 - 15)] = 1;  
-        end
+        WE = 0;
+        data_in=32'b0;         
+        data_in[i%32] = 1;  
+        data_in[31 - i%32] = 1; 
+        $display("Addr: %d | Data Out: %b", addr, data_out); 
         #5;
-        WE = 1;  
+        WE = 1;       
     end
+    // for(i=0; i<32; i=i+1)begin
+    //     addr=i;
+    //     $display("Addr: %d | Data Out: %b", addr, data_out); 
+    // end
+    
     $finish; 
     end 
 endtask
@@ -56,10 +51,6 @@ initial begin
     $dumpfile("SRAM.vcd");
     $dumpvars(0, SRAM_tb);
     my_task();
-end
-
-initial begin
-    $monitor("Data Out: %b", data_out);
 end
 
 endmodule

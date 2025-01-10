@@ -7,43 +7,55 @@
 :vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
 :vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
 :vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
-S_00000202c0214fe0 .scope module, "tb" "tb" 2 3;
+S_000001bc8f8c8b20 .scope module, "TestClockAmplifier" "TestClockAmplifier" 2 3;
  .timescale 0 0;
-v00000202c0159900_0 .var "clk", 0 0;
-v00000202c015ac00_0 .net "new_clk", 0 0, L_00000202c0157050;  1 drivers
-S_00000202c0215170 .scope module, "u_clk" "clk" 2 14, 3 1 0, S_00000202c0214fe0;
+v000001bc8f8c6c90_0 .var "clk_in", 0 0;
+v000001bc8f8c6d30_0 .net "clk_out", 0 0, L_000001bc8f8c6dd0;  1 drivers
+S_000001bc8f8c8cb0 .scope module, "clk_amp" "ClockAmplifier" 2 8, 3 1 0, S_000001bc8f8c8b20;
  .timescale 0 0;
-    .port_info 0 /INPUT 1 "clk";
-    .port_info 1 /OUTPUT 1 "new_clk";
-L_00000202c0157050 .functor BUFZ 1, v00000202c0159900_0, C4<0>, C4<0>, C4<0>;
-v00000202c0157270_0 .net "clk", 0 0, v00000202c0159900_0;  1 drivers
-v00000202c0156da0_0 .net "new_clk", 0 0, L_00000202c0157050;  alias, 1 drivers
-    .scope S_00000202c0214fe0;
+    .port_info 0 /INPUT 1 "clk_in";
+    .port_info 1 /OUTPUT 1 "clk_out";
+v000001bc8f795a30_0 .net "clk_in", 0 0, v000001bc8f8c6c90_0;  1 drivers
+v000001bc8f8cbed0_0 .net "clk_out", 0 0, L_000001bc8f8c6dd0;  alias, 1 drivers
+v000001bc8f8c6bf0_0 .var "cntr", 2 0;
+E_000001bc8f8cc1f0 .event posedge, v000001bc8f795a30_0;
+L_000001bc8f8c6dd0 .part v000001bc8f8c6bf0_0, 2, 1;
+    .scope S_000001bc8f8c8cb0;
 T_0 ;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000202c0159900_0, 0, 1;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001bc8f8c6bf0_0, 0, 3;
     %end;
     .thread T_0;
-    .scope S_00000202c0214fe0;
+    .scope S_000001bc8f8c8cb0;
 T_1 ;
-    %delay 1, 0;
-    %load/vec4 v00000202c0159900_0;
-    %inv;
-    %store/vec4 v00000202c0159900_0, 0, 1;
+    %wait E_000001bc8f8cc1f0;
+    %load/vec4 v000001bc8f8c6bf0_0;
+    %addi 1, 0, 3;
+    %assign/vec4 v000001bc8f8c6bf0_0, 0;
     %jmp T_1;
     .thread T_1;
-    .scope S_00000202c0214fe0;
+    .scope S_000001bc8f8c8b20;
 T_2 ;
-    %vpi_call 2 20 "$dumpfile", "clk.vcd" {0 0 0};
-    %vpi_call 2 21 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000202c0215170 {0 0 0};
-    %vpi_call 2 22 "$monitor", "%b and %b", v00000202c0159900_0, v00000202c015ac00_0 {0 0 0};
-    %delay 10, 0;
-    %vpi_call 2 24 "$finish" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001bc8f8c6c90_0, 0, 1;
+T_2.0 ;
+    %delay 5, 0;
+    %load/vec4 v000001bc8f8c6c90_0;
+    %inv;
+    %store/vec4 v000001bc8f8c6c90_0, 0, 1;
+    %jmp T_2.0;
     %end;
     .thread T_2;
+    .scope S_000001bc8f8c8b20;
+T_3 ;
+    %vpi_call 2 19 "$monitor", "Time=%0t: clk_in=%b, clk_out=%b", $time, v000001bc8f8c6c90_0, v000001bc8f8c6d30_0 {0 0 0};
+    %delay 200, 0;
+    %vpi_call 2 20 "$finish" {0 0 0};
+    %end;
+    .thread T_3;
 # The file index is used to find the file name in the following table.
 :file_names 4;
     "N/A";
     "<interactive>";
-    "clk_tb.v";
+    ".\clk_tb.v";
     "./clk.v";

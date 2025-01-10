@@ -28,7 +28,7 @@ module counter (
                 count <= count + 1;
             end
             if(en & ~incr) begin
-                count <= count + 1;
+                count <= count - 1;
             end
         end
     end

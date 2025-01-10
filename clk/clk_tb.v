@@ -1,27 +1,23 @@
 `include "clk.v"
 
-module tb();
+module TestClockAmplifier;
 
-reg clk=1'b0;
+    reg clk_in;
+    wire clk_out;
 
-always begin
-    #1 clk=~clk;
-end
+    ClockAmplifier clk_amp (
+        .clk_in(clk_in),
+        .clk_out(clk_out)
+    );
 
-wire new_clk;
+    initial begin
+        clk_in = 0;
+        forever #5 clk_in = ~clk_in; 
+    end
 
-
-clk u_clk(
-    .clk(clk),
-    .new_clk(new_clk)
-);
-
-initial begin
-    $dumpfile("clk.vcd");
-    $dumpvars(0, u_clk);
-    $monitor("%b and %b", clk, new_clk);
-    #10;
-    $finish;
-end
+    initial begin
+        $monitor("Time=%0t: clk_in=%b, clk_out=%b", $time, clk_in, clk_out);
+        #200 $finish; 
+    end
 
 endmodule
