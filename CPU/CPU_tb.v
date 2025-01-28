@@ -16,6 +16,7 @@ always #1 clk = ~clk;
 CPU u_CPU(
     .clk(clk),
     .cs(cs),
+    .we(we),
     .reset(reset),
     .reg1(reg1),
     .reg2(reg2),
@@ -24,6 +25,8 @@ CPU u_CPU(
 );
 
 initial begin
+    $dumpfile("CPU.vcd");
+    $dumpvars(0, CPU_tb);
     clk=0;
     reset=1;
     #10;
@@ -71,8 +74,6 @@ initial begin
     #2;
     we=1;
     //Store R3 to memory address 0x0F.
-    $dumpfile("CPU.vcd");
-    $dumpvars(0, u_CPU);
     $finish;
 end
 

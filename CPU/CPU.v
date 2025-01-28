@@ -1,5 +1,5 @@
-//`include "C:/Users/HP/Desktop/Verilog/SRAM/SRAM.v"
-//`include "C:/Users/HP/Desktop/Verilog/SRAM/ALU.v"
+`include "../SRAM/SRAM.v"
+`include "../ALU/ALU.v"
 
 module CPU(
     input clk,
@@ -16,7 +16,6 @@ reg [3:0]programm_counter;
 reg [7:0] data_in;
 wire [7:0] result;
 wire [7:0] instruction;
-wire [7:0] data_out;
 
 always@(posedge clk)begin
     if(reset)begin
@@ -28,19 +27,19 @@ always@(posedge clk)begin
     end
     else begin
         programm_counter<=programm_counter+1;
-        if(we)begin
+        if(~we)begin
             case(instruction[7:6])
                 2'b00:begin
-                    reg1<=data_out;
+                    reg1<=instruction[3:0];
                 end
                 2'b01:begin
-                    reg2<=data_out;
+                    reg2<=instruction[3:0];
                 end
                 2'b10:begin
-                    reg3<=data_out;
+                    reg3<=instruction[3:0];
                 end
                 2'b11:begin
-                    reg4<=data_out;
+                    reg4<=instruction[3:0];
                 end
             endcase
         end
@@ -57,7 +56,7 @@ SRAM #(
     .WE(we),
     .addr(programm_counter),
     .data_in(data_in),
-    .instruction(data_out)
+    .instruction(instruction)
 );
 
 ALU u_ALU(

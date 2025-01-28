@@ -15,7 +15,7 @@ module SRAM #(
 reg [WIDTH-1:0] mem[0:LENGTH-1];
 
 initial begin
-    $readmemb("C:/Users/HP/Desktop/Verilog/SRAM/file.txt", mem);
+    $readmemb("C:/Users/HP/Desktop/CPU-RTL/SRAM/file.txt", mem);
 end
 
 assign instruction=mem[addr];

@@ -1,5 +1,5 @@
 $date
-	Tue Jan 28 22:30:15 2025
+	Tue Jan 28 23:10:07 2025
 $end
 $version
 	Icarus Verilog
@@ -8,60 +8,294 @@ $timescale
 	1s
 $end
 $scope module CPU_tb $end
+$var wire 8 ! reg4 [7:0] $end
+$var wire 8 " reg3 [7:0] $end
+$var wire 8 # reg2 [7:0] $end
+$var wire 8 $ reg1 [7:0] $end
+$var reg 1 % clk $end
+$var reg 1 & cs $end
+$var reg 1 ' reset $end
+$var reg 1 ( we $end
 $scope module u_CPU $end
-$var wire 1 ! clk $end
-$var wire 1 " cs $end
-$var wire 8 # instruction [7:0] $end
-$var wire 1 $ reset $end
-$var wire 1 % we $end
-$var wire 8 & result [7:0] $end
-$var wire 8 ' data_out [7:0] $end
-$var reg 8 ( data_in [7:0] $end
-$var reg 4 ) programm_counter [3:0] $end
-$var reg 8 * reg1 [7:0] $end
-$var reg 8 + reg2 [7:0] $end
-$var reg 8 , reg3 [7:0] $end
-$var reg 8 - reg4 [7:0] $end
+$var wire 1 % clk $end
+$var wire 1 & cs $end
+$var wire 1 ' reset $end
+$var wire 1 ( we $end
+$var wire 8 ) result [7:0] $end
+$var wire 8 * instruction [7:0] $end
+$var reg 8 + data_in [7:0] $end
+$var reg 4 , programm_counter [3:0] $end
+$var reg 8 - reg1 [7:0] $end
+$var reg 8 . reg2 [7:0] $end
+$var reg 8 / reg3 [7:0] $end
+$var reg 8 0 reg4 [7:0] $end
 $scope module u_ALU $end
-$var wire 1 " cs $end
-$var wire 8 . data1 [7:0] $end
-$var wire 8 / data2 [7:0] $end
-$var wire 2 0 opcode [1:0] $end
-$var reg 8 1 result [7:0] $end
+$var wire 1 & cs $end
+$var wire 8 1 data1 [7:0] $end
+$var wire 8 2 data2 [7:0] $end
+$var wire 2 3 opcode [1:0] $end
+$var reg 8 4 result [7:0] $end
 $upscope $end
 $scope module u_SRAM $end
-$var wire 1 " CS $end
-$var wire 1 % WE $end
-$var wire 4 2 addr [3:0] $end
-$var wire 1 ! clk $end
-$var wire 8 3 data_in [7:0] $end
-$var wire 8 4 instruction [7:0] $end
-$var reg 8 5 data_out [7:0] $end
+$var wire 1 & CS $end
+$var wire 1 ( WE $end
+$var wire 4 5 addr [3:0] $end
+$var wire 1 % clk $end
+$var wire 8 6 data_in [7:0] $end
+$var wire 8 7 instruction [7:0] $end
+$var reg 8 8 data_out [7:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
-#42
+#0
 $dumpvars
+bx 8
+bx 7
+bx 6
 bx 5
 bx 4
 bx 3
-b0 2
+bx 2
 bx 1
-bz 0
-b0 /
-b0 .
-b0 -
-b0 ,
-b0 +
-b0 *
-b0 )
-bx (
-bx '
-bx &
-z%
-0$
-bz #
-1"
-0!
+bx 0
+bx /
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+x(
+1'
+x&
+0%
+bx $
+bx #
+bx "
+bx !
 $end
+#1
+b1 3
+b10010 *
+b10010 7
+b0 ,
+b0 5
+b0 !
+b0 0
+b0 "
+b0 /
+b0 #
+b0 .
+b0 2
+b0 $
+b0 -
+b0 1
+1%
+#2
+0%
+#3
+1%
+#4
+0%
+#5
+1%
+#6
+0%
+#7
+1%
+#8
+0%
+#9
+1%
+#10
+0%
+0(
+1&
+0'
+#11
+b10 3
+b10 $
+b10 -
+b10 1
+b100100 *
+b100100 7
+b1 ,
+b1 5
+b10010 8
+1%
+#12
+0%
+#13
+b1 3
+b100100 8
+b100 $
+b100 -
+b100 1
+b1010000 *
+b1010000 7
+b10 ,
+b10 5
+1%
+#14
+b100 )
+b100 4
+0%
+0&
+#15
+b10101 *
+b10101 7
+b11 ,
+b11 5
+1%
+#16
+0%
+1&
+#17
+b10 3
+b10101 8
+b101 $
+b101 -
+b101 1
+b101110 *
+b101110 7
+b100 ,
+b100 5
+1%
+#18
+0%
+#19
+b11 3
+b1110 $
+b1110 -
+b1110 1
+b10110000 *
+b10110000 7
+b101 ,
+b101 5
+b101110 8
+1%
+#20
+b1110 )
+b1110 4
+0%
+0&
+#21
+b1 3
+b11010110 *
+b11010110 7
+b110 ,
+b110 5
+1%
+#22
+0%
+1&
+1(
+#23
+b10 3
+b111 ,
+b111 5
+b100011 *
+b100011 7
+1%
+#24
+0%
+#25
+b1 3
+b1011000 *
+b1011000 7
+b1000 ,
+b1000 5
+1%
+#26
+0%
+0&
+#27
+b11010100 *
+b11010100 7
+b1001 ,
+b1001 5
+1%
+#28
+0%
+1&
+#29
+b11010 *
+b11010 7
+b1010 ,
+b1010 5
+1%
+#30
+0%
+#31
+b11 3
+b1011 ,
+b1011 5
+b111011 *
+b111011 7
+1%
+#32
+0%
+0(
+#33
+b111011 8
+b1011 $
+b1011 -
+b1011 1
+b10111100 *
+b10111100 7
+b1100 ,
+b1100 5
+1%
+#34
+0%
+#35
+b1 3
+b1100 "
+b1100 /
+b11011011 *
+b11011011 7
+b1101 ,
+b1101 5
+b10111100 8
+1%
+#36
+b1011 )
+b1011 4
+0%
+0&
+#37
+b1011 !
+b1011 0
+b11111 *
+b11111 7
+b1110 ,
+b1110 5
+1%
+#38
+0%
+1(
+1&
+#39
+b11 3
+b1111 ,
+b1111 5
+b11111111 *
+b11111111 7
+1%
+#40
+0%
+0(
+#41
+b1 3
+b11111111 8
+b1111 !
+b1111 0
+b10010 *
+b10010 7
+b0 ,
+b0 5
+1%
+#42
+0%
+1(
