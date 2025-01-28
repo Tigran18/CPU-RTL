@@ -7,17 +7,18 @@ module SRAM #(
     input CS,
     input WE,
     input [ADDR-1:0] addr,
-//    input [WIDTH-1:0] data_in,
+    input [WIDTH-1:0] data_in,
     output [WIDTH-1:0] instruction,
     output reg[WIDTH-1:0] data_out
 );
 
 reg [WIDTH-1:0] mem[0:LENGTH-1];
-assign instruction=mem[addr];
 
 initial begin
     $readmemb("C:/Users/HP/Desktop/Verilog/SRAM/file.txt", mem);
 end
+
+assign instruction=mem[addr];
 
 always @(posedge clk) begin
     if(CS)begin

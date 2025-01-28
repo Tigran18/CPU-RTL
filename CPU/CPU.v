@@ -12,10 +12,11 @@ module CPU(
     output reg [7:0] reg4
 );
 
-reg [3:0] programm_counter;
+reg [3:0]programm_counter;
+reg [7:0] data_in;
 wire [7:0] result;
 wire [7:0] instruction;
-wire [7:0] data;
+wire [7:0] data_out;
 
 always@(posedge clk)begin
     if(reset)begin
@@ -23,23 +24,26 @@ always@(posedge clk)begin
         reg2 <= 8'b0;
         reg3 <= 8'b0;
         reg4 <= 8'b0;
+        programm_counter<=4'b0;
     end
     else begin
         programm_counter<=programm_counter+1;
-        case(instruction[7:6])
-            2'b00:begin
-                reg1<=result;
-            end
-            2'b01:begin
-                reg2<=result;
-            end
-            2'b10:begin
-                reg3<=result;
-            end
-            2'b11:begin
-                reg4<=result;
-            end
-        endcase
+        if(we)begin
+            case(instruction[7:6])
+                2'b00:begin
+                    reg1<=data_out;
+                end
+                2'b01:begin
+                    reg2<=data_out;
+                end
+                2'b10:begin
+                    reg3<=data_out;
+                end
+                2'b11:begin
+                    reg4<=data_out;
+                end
+            endcase
+        end
     end
 end
 
@@ -52,12 +56,14 @@ SRAM #(
     .CS(cs),
     .WE(we),
     .addr(programm_counter),
-    .data_out(data)
+    .data_in(data_in),
+    .instruction(data_out)
 );
 
 ALU u_ALU(
     .data1(reg1),
     .data2(reg2),
+    .cs(cs),
     .opcode(instruction[5:4]),
     .result(result)
 );
