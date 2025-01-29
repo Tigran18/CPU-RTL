@@ -10,6 +10,7 @@ wire [7:0] reg1;
 wire [7:0] reg2;
 wire [7:0] reg3;
 wire [7:0] reg4;
+wire [7:0] reg5;
 
 always #1 clk = ~clk;
 
@@ -21,7 +22,8 @@ CPU u_CPU(
     .reg1(reg1),
     .reg2(reg2),
     .reg3(reg3),
-    .reg4(reg4)
+    .reg4(reg4),
+    .reg5(reg5)
 );
 
 initial begin
@@ -79,8 +81,8 @@ initial begin
 end
 
 initial begin
-    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | PC=%b | WE=%b", 
-    $time, reg1, reg2, reg3, reg4, u_CPU.program_counter, we);
+    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | Reg5=%b | PC=%b ", 
+    $time, reg1, reg2, reg3, reg4, reg5, u_CPU.program_counter);
 end
 
 endmodule
