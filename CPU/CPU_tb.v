@@ -28,7 +28,6 @@ initial begin
     $dumpfile("CPU.vcd");
     $dumpvars(0, CPU_tb);
     clk=0;
-    reset=1;
     #10;
     reset=0;
     cs=1;
@@ -78,7 +77,7 @@ initial begin
 end
 
 initial begin
-    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | PC=%b", $time, reg1, reg2, reg3, reg4, u_CPU.programm_counter);
+    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | PC=%b, WE=%b", $time, reg1, reg2, reg3, reg4, u_CPU.programm_counter, we);
 end
 
 endmodule

@@ -8,7 +8,6 @@ module SRAM #(
     input WE,
     input [ADDR-1:0] addr,
     input [WIDTH-1:0] data_in,
-    output [WIDTH-1:0] instruction,
     output reg[WIDTH-1:0] data_out
 );
 
@@ -18,12 +17,10 @@ initial begin
     $readmemb("C:/Users/HP/Desktop/CPU-RTL/SRAM/file.txt", mem);
 end
 
-assign instruction=mem[addr];
-
 always @(posedge clk) begin
     if(CS)begin
         if (WE) begin
-            mem[addr] <= data_in;
+            mem[15+addr] <= data_in;
         end 
         else begin
             data_out <= mem[addr];
