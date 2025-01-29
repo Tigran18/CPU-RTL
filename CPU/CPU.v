@@ -13,7 +13,7 @@ module CPU(
     output reg [7:0] reg4
 );
 
-reg [3:0]programm_counter;
+reg [3:0]program_counter;
 reg [7:0] data_in;
 wire [7:0] result;
 wire [7:0] instruction;
@@ -27,26 +27,13 @@ always@(posedge clk)begin
         reg2 <= 8'b0;
         reg3 <= 8'b0;
         reg4 <= 8'b0;
-        programm_counter<=4'b0;
+        program_counter<=4'b0;
     end
     else begin
-        programm_counter<=programm_counter+1;
+        program_counter<=program_counter+1;
         if(~we)begin
             if(instruction[7:6]==2'b00)begin
-                case(instruction[5:4])
-                    2'b00:begin
-                        reg1<=instruction[3:0];
-                    end
-                    2'b01:begin
-                        reg2<=instruction[3:0];
-                    end
-                    2'b10:begin
-                        reg3<=instruction[3:0];
-                    end
-                    2'b11:begin
-                        reg4<=instruction[3:0];
-                    end
-                endcase
+                reg2<=result;
             end
         end
         else begin
@@ -60,7 +47,7 @@ decoder u1_decoder(
     .register2(reg2),
     .register3(reg3),
     .register4(reg4),
-    .sel(instruction[5:4]),
+    .sel(instruction[3:2]),
     .data(data1)
 );
 
@@ -69,7 +56,7 @@ decoder u2_decoder(
     .register2(reg2),
     .register3(reg3),
     .register4(reg4),
-    .sel(instruction[5:4]),
+    .sel(instruction[1:0]),
     .data(data2)
 );
 
@@ -81,7 +68,7 @@ SRAM #(
     .clk(clk),
     .CS(cs),
     .WE(we),
-    .addr(programm_counter),
+    .addr(program_counter),
     .data_in(data_in),
     .data_out(instruction)
 );
@@ -89,7 +76,6 @@ SRAM #(
 ALU u_ALU(
     .data1(data1),
     .data2(data2),
-    .cs(cs),
     .opcode(instruction[5:4]),
     .result(result)
 );

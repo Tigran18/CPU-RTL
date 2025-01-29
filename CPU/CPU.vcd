@@ -1,5 +1,5 @@
 $date
-	Wed Jan 29 22:09:12 2025
+	Wed Jan 29 23:07:36 2025
 $end
 $version
 	Icarus Verilog
@@ -26,7 +26,7 @@ $var wire 8 * instruction [7:0] $end
 $var wire 8 + data2 [7:0] $end
 $var wire 8 , data1 [7:0] $end
 $var reg 8 - data_in [7:0] $end
-$var reg 4 . programm_counter [3:0] $end
+$var reg 4 . program_counter [3:0] $end
 $var reg 8 / reg1 [7:0] $end
 $var reg 8 0 reg2 [7:0] $end
 $var reg 8 1 reg3 [7:0] $end
@@ -48,7 +48,6 @@ $var wire 2 = sel [1:0] $end
 $var reg 8 > data [7:0] $end
 $upscope $end
 $scope module u_ALU $end
-$var wire 1 & cs $end
 $var wire 8 ? data1 [7:0] $end
 $var wire 8 @ data2 [7:0] $end
 $var wire 2 A opcode [1:0] $end
@@ -96,9 +95,9 @@ bx ,
 bx +
 bx *
 bx )
-x(
-x'
-x&
+0(
+1'
+0&
 0%
 bx $
 bx #
@@ -106,6 +105,24 @@ bx "
 bx !
 $end
 #1
+b0 .
+b0 C
+b0 !
+b0 2
+b0 6
+b0 <
+b0 "
+b0 1
+b0 5
+b0 ;
+b0 #
+b0 0
+b0 4
+b0 :
+b0 $
+b0 /
+b0 3
+b0 9
 1%
 #2
 0%
@@ -125,83 +142,140 @@ $end
 1%
 #10
 0%
-0(
 1&
 0'
 #11
+b0 )
+b0 B
+b0 +
+b0 >
+b0 @
+b0 ,
+b0 8
+b0 ?
+b1 A
+b10 =
+b0 7
+b1 .
+b1 C
+b10010 *
+b10010 E
 1%
 #12
 0%
 #13
+b10 A
+b0 =
+b1 7
+b100100 *
+b100100 E
+b10 .
+b10 C
 1%
 #14
 0%
 0&
 #15
+b11 .
+b11 C
 1%
 #16
 0%
 1&
 #17
+b1 A
+b1 =
+b10101 *
+b10101 E
+b100 .
+b100 C
 1%
 #18
 0%
 #19
+b10 A
+b10 =
+b11 7
+b101 .
+b101 C
+b101110 *
+b101110 E
 1%
 #20
 0%
 0&
 #21
+b110 .
+b110 C
 1%
 #22
 0%
-1&
 1(
 #23
+b0 -
+b0 D
+b111 .
+b111 C
 1%
 #24
 0%
+1&
 #25
+b1000 .
+b1000 C
 1%
 #26
 0%
-0&
 #27
+b1001 .
+b1001 C
 1%
 #28
 0%
-1&
+0&
 #29
+b1010 .
+b1010 C
 1%
 #30
 0%
+1&
 #31
+b1011 .
+b1011 C
 1%
 #32
 0%
-0(
 #33
+b1100 .
+b1100 C
 1%
 #34
 0%
 #35
+b1101 .
+b1101 C
 1%
 #36
 0%
 0&
 #37
+b1110 .
+b1110 C
 1%
 #38
 0%
-1(
 1&
 #39
+b1111 .
+b1111 C
 1%
 #40
 0%
-0(
 #41
+b0 .
+b0 C
 1%
 #42
 0%
-1(
+0&
