@@ -16,6 +16,7 @@ always #1 clk = ~clk;
 CPU u_CPU(
     .clk(clk),
     .cs(cs),
+    .we(we),
     .reset(reset),
     .reg1(reg1),
     .reg2(reg2),
@@ -24,8 +25,9 @@ CPU u_CPU(
 );
 
 initial begin
+    $dumpfile("CPU.vcd");
+    $dumpvars(0, CPU_tb);
     clk=0;
-    reset=1;
     #10;
     reset=0;
     cs=1;
@@ -71,13 +73,11 @@ initial begin
     #2;
     we=1;
     //Store R3 to memory address 0x0F.
-    $dumpfile("CPU.vcd");
-    $dumpvars(0, u_CPU);
     $finish;
 end
 
 initial begin
-    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | PC=%b", $time, reg1, reg2, reg3, reg4, u_CPU.programm_counter);
+    $monitor("Time=%0t | Reg1=%b | Reg2=%b | Reg3=%b | Reg4=%b | PC=%b, WE=%b", $time, reg1, reg2, reg3, reg4, u_CPU.programm_counter, we);
 end
 
 endmodule

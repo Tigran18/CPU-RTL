@@ -1,5 +1,6 @@
-//`include "C:/Users/HP/Desktop/Verilog/SRAM/SRAM.v"
-//`include "C:/Users/HP/Desktop/Verilog/SRAM/ALU.v"
+`include "../SRAM/SRAM.v"
+`include "../ALU/ALU.v"
+`include "../Decoder/Decoder.v"
 
 module CPU(
     input clk,
@@ -16,6 +17,8 @@ reg [3:0]programm_counter;
 reg [7:0] data_in;
 wire [7:0] result;
 wire [7:0] instruction;
+wire [7:0] data1;
+wire [7:0] data2;
 wire [7:0] data_out;
 
 always@(posedge clk)begin
@@ -28,24 +31,47 @@ always@(posedge clk)begin
     end
     else begin
         programm_counter<=programm_counter+1;
-        if(we)begin
-            case(instruction[7:6])
-                2'b00:begin
-                    reg1<=data_out;
-                end
-                2'b01:begin
-                    reg2<=data_out;
-                end
-                2'b10:begin
-                    reg3<=data_out;
-                end
-                2'b11:begin
-                    reg4<=data_out;
-                end
-            endcase
+        if(~we)begin
+            if(instruction[7:6]==2'b00)begin
+                case(instruction[5:4])
+                    2'b00:begin
+                        reg1<=instruction[3:0];
+                    end
+                    2'b01:begin
+                        reg2<=instruction[3:0];
+                    end
+                    2'b10:begin
+                        reg3<=instruction[3:0];
+                    end
+                    2'b11:begin
+                        reg4<=instruction[3:0];
+                    end
+                endcase
+            end
+        end
+        else begin
+            data_in<=result;
         end
     end
 end
+
+decoder u1_decoder(
+    .register1(reg1),
+    .register2(reg2),
+    .register3(reg3),
+    .register4(reg4),
+    .sel(instruction[5:4]),
+    .data(data1)
+);
+
+decoder u2_decoder(
+    .register1(reg1),
+    .register2(reg2),
+    .register3(reg3),
+    .register4(reg4),
+    .sel(instruction[5:4]),
+    .data(data2)
+);
 
 SRAM #(
     .ADDR(4),
@@ -57,12 +83,12 @@ SRAM #(
     .WE(we),
     .addr(programm_counter),
     .data_in(data_in),
-    .instruction(data_out)
+    .data_out(instruction)
 );
 
 ALU u_ALU(
-    .data1(reg1),
-    .data2(reg2),
+    .data1(data1),
+    .data2(data2),
     .cs(cs),
     .opcode(instruction[5:4]),
     .result(result)

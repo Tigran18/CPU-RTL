@@ -1,5 +1,5 @@
 $date
-	Tue Jan 28 22:30:15 2025
+	Wed Jan 29 22:09:12 2025
 $end
 $version
 	Icarus Verilog
@@ -8,60 +8,200 @@ $timescale
 	1s
 $end
 $scope module CPU_tb $end
+$var wire 8 ! reg4 [7:0] $end
+$var wire 8 " reg3 [7:0] $end
+$var wire 8 # reg2 [7:0] $end
+$var wire 8 $ reg1 [7:0] $end
+$var reg 1 % clk $end
+$var reg 1 & cs $end
+$var reg 1 ' reset $end
+$var reg 1 ( we $end
 $scope module u_CPU $end
-$var wire 1 ! clk $end
-$var wire 1 " cs $end
-$var wire 8 # instruction [7:0] $end
-$var wire 1 $ reset $end
-$var wire 1 % we $end
-$var wire 8 & result [7:0] $end
-$var wire 8 ' data_out [7:0] $end
-$var reg 8 ( data_in [7:0] $end
-$var reg 4 ) programm_counter [3:0] $end
-$var reg 8 * reg1 [7:0] $end
-$var reg 8 + reg2 [7:0] $end
-$var reg 8 , reg3 [7:0] $end
-$var reg 8 - reg4 [7:0] $end
+$var wire 1 % clk $end
+$var wire 1 & cs $end
+$var wire 1 ' reset $end
+$var wire 1 ( we $end
+$var wire 8 ) result [7:0] $end
+$var wire 8 * instruction [7:0] $end
+$var wire 8 + data2 [7:0] $end
+$var wire 8 , data1 [7:0] $end
+$var reg 8 - data_in [7:0] $end
+$var reg 4 . programm_counter [3:0] $end
+$var reg 8 / reg1 [7:0] $end
+$var reg 8 0 reg2 [7:0] $end
+$var reg 8 1 reg3 [7:0] $end
+$var reg 8 2 reg4 [7:0] $end
+$scope module u1_decoder $end
+$var wire 8 3 register1 [7:0] $end
+$var wire 8 4 register2 [7:0] $end
+$var wire 8 5 register3 [7:0] $end
+$var wire 8 6 register4 [7:0] $end
+$var wire 2 7 sel [1:0] $end
+$var reg 8 8 data [7:0] $end
+$upscope $end
+$scope module u2_decoder $end
+$var wire 8 9 register1 [7:0] $end
+$var wire 8 : register2 [7:0] $end
+$var wire 8 ; register3 [7:0] $end
+$var wire 8 < register4 [7:0] $end
+$var wire 2 = sel [1:0] $end
+$var reg 8 > data [7:0] $end
+$upscope $end
 $scope module u_ALU $end
-$var wire 1 " cs $end
-$var wire 8 . data1 [7:0] $end
-$var wire 8 / data2 [7:0] $end
-$var wire 2 0 opcode [1:0] $end
-$var reg 8 1 result [7:0] $end
+$var wire 1 & cs $end
+$var wire 8 ? data1 [7:0] $end
+$var wire 8 @ data2 [7:0] $end
+$var wire 2 A opcode [1:0] $end
+$var reg 8 B result [7:0] $end
 $upscope $end
 $scope module u_SRAM $end
-$var wire 1 " CS $end
-$var wire 1 % WE $end
-$var wire 4 2 addr [3:0] $end
-$var wire 1 ! clk $end
-$var wire 8 3 data_in [7:0] $end
-$var wire 8 4 instruction [7:0] $end
-$var reg 8 5 data_out [7:0] $end
+$var wire 1 & CS $end
+$var wire 1 ( WE $end
+$var wire 4 C addr [3:0] $end
+$var wire 1 % clk $end
+$var wire 8 D data_in [7:0] $end
+$var reg 8 E data_out [7:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
-#42
+#0
 $dumpvars
+bx E
+bx D
+bx C
+bx B
+bx A
+bx @
+bx ?
+bx >
+bx =
+bx <
+bx ;
+bx :
+bx 9
+bx 8
+bx 7
+bx 6
 bx 5
 bx 4
 bx 3
-b0 2
+bx 2
 bx 1
-bz 0
-b0 /
-b0 .
-b0 -
-b0 ,
-b0 +
-b0 *
-b0 )
-bx (
-bx '
-bx &
-z%
-0$
-bz #
-1"
-0!
+bx 0
+bx /
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+x(
+x'
+x&
+0%
+bx $
+bx #
+bx "
+bx !
 $end
+#1
+1%
+#2
+0%
+#3
+1%
+#4
+0%
+#5
+1%
+#6
+0%
+#7
+1%
+#8
+0%
+#9
+1%
+#10
+0%
+0(
+1&
+0'
+#11
+1%
+#12
+0%
+#13
+1%
+#14
+0%
+0&
+#15
+1%
+#16
+0%
+1&
+#17
+1%
+#18
+0%
+#19
+1%
+#20
+0%
+0&
+#21
+1%
+#22
+0%
+1&
+1(
+#23
+1%
+#24
+0%
+#25
+1%
+#26
+0%
+0&
+#27
+1%
+#28
+0%
+1&
+#29
+1%
+#30
+0%
+#31
+1%
+#32
+0%
+0(
+#33
+1%
+#34
+0%
+#35
+1%
+#36
+0%
+0&
+#37
+1%
+#38
+0%
+1(
+1&
+#39
+1%
+#40
+0%
+0(
+#41
+1%
+#42
+0%
+1(
