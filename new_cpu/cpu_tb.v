@@ -27,6 +27,8 @@ initial begin
     $dumpfile("sram.vcd");
     $dumpvars(0, cpu_tb);
     cs=1;
+    for(integer i=0; i<16; i=i+1)begin
+        $display("data=%b", u_sram.data[i]);
     #16;
     $finish;
 end
@@ -36,3 +38,4 @@ initial begin
 end
 
 endmodule
+    
